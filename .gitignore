@@ -1,4 +1,1 @@
-/target/javadoc-bundle-options/*
-/target/maven-archiver/*
-/target/maven-status/*
-/target/surefire/*
+/target/
