@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,106 +30,68 @@ import javax.validation.constraints.Size;
 @Table(name = "classe", catalog = "gestschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Classe.findAll", query = "SELECT c FROM Classe c"),
-    @NamedQuery(name = "Classe.findByIdclasse", query = "SELECT c FROM Classe c WHERE c.idclasse = :idclasse"),
-    @NamedQuery(name = "Classe.findByDesignation", query = "SELECT c FROM Classe c WHERE c.designation = :designation"),
-    @NamedQuery(name = "Classe.findByNbreEleveMax", query = "SELECT c FROM Classe c WHERE c.nbreEleveMax = :nbreEleveMax"),
-    @NamedQuery(name = "Classe.findByNbreEleveMin", query = "SELECT c FROM Classe c WHERE c.nbreEleveMin = :nbreEleveMin"),
-    @NamedQuery(name = "Classe.findByDateCreation", query = "SELECT c FROM Classe c WHERE c.dateCreation = :dateCreation")})
+    @NamedQuery(name = "Classe.findByIdClasse", query = "SELECT c FROM Classe c WHERE c.idClasse = :idClasse"),
+    @NamedQuery(name = "Classe.findByDateCreationClasse", query = "SELECT c FROM Classe c WHERE c.dateCreationClasse = :dateCreationClasse"),
+    @NamedQuery(name = "Classe.findByNombreEleveMax", query = "SELECT c FROM Classe c WHERE c.nombreEleveMax = :nombreEleveMax")})
 public class Classe implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idclasse", nullable = false)
-    private Integer idclasse;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "designation", nullable = false, length = 45)
-    private String designation;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nbre_eleve_max", nullable = false)
-    private int nbreEleveMax;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "nbre_eleve_min", nullable = false)
-    private int nbreEleveMin;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "date_creation", nullable = false)
+    @Size(min = 1, max = 10)
+    @Column(name = "idClasse", nullable = false, length = 10)
+    private String idClasse;
+    @Column(name = "dateCreationClasse")
     @Temporal(TemporalType.DATE)
-    private Date dateCreation;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classe1", fetch = FetchType.LAZY)
-    private List<Inscription> inscriptionList;
+    private Date dateCreationClasse;
+    @Column(name = "nombreEleveMax")
+    private Integer nombreEleveMax;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classeidClasse")
+    private List<Sessionclasse> sessionclasseList;
 
     public Classe() {
     }
 
-    public Classe(Integer idclasse) {
-        this.idclasse = idclasse;
+    public Classe(String idClasse) {
+        this.idClasse = idClasse;
     }
 
-    public Classe(Integer idclasse, String designation, int nbreEleveMax, int nbreEleveMin, Date dateCreation) {
-        this.idclasse = idclasse;
-        this.designation = designation;
-        this.nbreEleveMax = nbreEleveMax;
-        this.nbreEleveMin = nbreEleveMin;
-        this.dateCreation = dateCreation;
+    public String getIdClasse() {
+        return idClasse;
     }
 
-    public Integer getIdclasse() {
-        return idclasse;
+    public void setIdClasse(String idClasse) {
+        this.idClasse = idClasse;
     }
 
-    public void setIdclasse(Integer idclasse) {
-        this.idclasse = idclasse;
+    public Date getDateCreationClasse() {
+        return dateCreationClasse;
     }
 
-    public String getDesignation() {
-        return designation;
+    public void setDateCreationClasse(Date dateCreationClasse) {
+        this.dateCreationClasse = dateCreationClasse;
     }
 
-    public void setDesignation(String designation) {
-        this.designation = designation;
+    public Integer getNombreEleveMax() {
+        return nombreEleveMax;
     }
 
-    public int getNbreEleveMax() {
-        return nbreEleveMax;
+    public void setNombreEleveMax(Integer nombreEleveMax) {
+        this.nombreEleveMax = nombreEleveMax;
     }
 
-    public void setNbreEleveMax(int nbreEleveMax) {
-        this.nbreEleveMax = nbreEleveMax;
+    public List<Sessionclasse> getSessionclasseList() {
+        return sessionclasseList;
     }
 
-    public int getNbreEleveMin() {
-        return nbreEleveMin;
-    }
-
-    public void setNbreEleveMin(int nbreEleveMin) {
-        this.nbreEleveMin = nbreEleveMin;
-    }
-
-    public Date getDateCreation() {
-        return dateCreation;
-    }
-
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
-    }
-
-    public List<Inscription> getInscriptionList() {
-        return inscriptionList;
-    }
-
-    public void setInscriptionList(List<Inscription> inscriptionList) {
-        this.inscriptionList = inscriptionList;
+    public void setSessionclasseList(List<Sessionclasse> sessionclasseList) {
+        this.sessionclasseList = sessionclasseList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idclasse != null ? idclasse.hashCode() : 0);
+        hash += (idClasse != null ? idClasse.hashCode() : 0);
         return hash;
     }
 
@@ -141,7 +102,7 @@ public class Classe implements Serializable {
             return false;
         }
         Classe other = (Classe) object;
-        if ((this.idclasse == null && other.idclasse != null) || (this.idclasse != null && !this.idclasse.equals(other.idclasse))) {
+        if ((this.idClasse == null && other.idClasse != null) || (this.idClasse != null && !this.idClasse.equals(other.idClasse))) {
             return false;
         }
         return true;
@@ -149,7 +110,7 @@ public class Classe implements Serializable {
 
     @Override
     public String toString() {
-        return "geschool.persistence.model.Classe[ idclasse=" + idclasse + " ]";
+        return "geschool.persistence.model.Classe[ idClasse=" + idClasse + " ]";
     }
     
 }
