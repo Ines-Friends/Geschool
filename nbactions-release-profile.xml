@@ -83,4 +83,20 @@
                 <packaging>*</packaging>
             </packagings>
         </action>
+        <action>
+            <actionName>build</actionName>
+            <packagings>
+                <packaging>*</packaging>
+            </packagings>
+            <goals>
+                <goal>install</goal>
+                <goal>clean:clean</goal>
+            </goals>
+            <properties>
+                <netbeans.clean>true</netbeans.clean>
+                <netbeans.deploy>true</netbeans.deploy>
+                <jpda.listen>maven</jpda.listen>
+                <maven.clean.failOnError>true</maven.clean.failOnError>
+            </properties>
+        </action>
     </actions>
