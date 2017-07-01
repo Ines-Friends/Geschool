@@ -12,16 +12,12 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -36,82 +32,74 @@ import javax.validation.constraints.Size;
 @Table(name = "eleve", catalog = "gestschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Eleve.findAll", query = "SELECT e FROM Eleve e"),
-    @NamedQuery(name = "Eleve.findByIdeleve", query = "SELECT e FROM Eleve e WHERE e.ideleve = :ideleve"),
+    @NamedQuery(name = "Eleve.findByIdEleve", query = "SELECT e FROM Eleve e WHERE e.idEleve = :idEleve"),
     @NamedQuery(name = "Eleve.findByNomEleve", query = "SELECT e FROM Eleve e WHERE e.nomEleve = :nomEleve"),
     @NamedQuery(name = "Eleve.findByPrenomEleve", query = "SELECT e FROM Eleve e WHERE e.prenomEleve = :prenomEleve"),
-    @NamedQuery(name = "Eleve.findByAdresse", query = "SELECT e FROM Eleve e WHERE e.adresse = :adresse"),
     @NamedQuery(name = "Eleve.findByDateNaissance", query = "SELECT e FROM Eleve e WHERE e.dateNaissance = :dateNaissance"),
+    @NamedQuery(name = "Eleve.findByAdresse", query = "SELECT e FROM Eleve e WHERE e.adresse = :adresse"),
+    @NamedQuery(name = "Eleve.findByTelephone", query = "SELECT e FROM Eleve e WHERE e.telephone = :telephone"),
     @NamedQuery(name = "Eleve.findByDateCreation", query = "SELECT e FROM Eleve e WHERE e.dateCreation = :dateCreation"),
     @NamedQuery(name = "Eleve.findByDateModification", query = "SELECT e FROM Eleve e WHERE e.dateModification = :dateModification")})
 public class Eleve implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "ideleve", nullable = false)
-    private Integer ideleve;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "nom_eleve", nullable = false, length = 45)
+    @Column(name = "idEleve", nullable = false)
+    private Integer idEleve;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 260)
+    @Column(name = "nomEleve", nullable = false, length = 260)
     private String nomEleve;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "prenom_eleve", nullable = false, length = 45)
+    @Size(max = 260)
+    @Column(name = "prenomEleve", length = 260)
     private String prenomEleve;
-    @Size(max = 100)
-    @Column(name = "adresse", length = 100)
-    private String adresse;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "date_naissance", nullable = false)
+    @Column(name = "dateNaissance")
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
+    @Size(max = 520)
+    @Column(name = "adresse", length = 520)
+    private String adresse;
+    @Size(max = 45)
+    @Column(name = "telephone", length = 45)
+    private String telephone;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "date_creation", nullable = false)
+    @Column(name = "dateCreation", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateCreation;
-    @Column(name = "date_modification")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "dateModification", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dateModification;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "eleve1", fetch = FetchType.LAZY)
-    private Note note;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "eleve", fetch = FetchType.LAZY)
-    private List<Paiement> paiementList;
-    @JoinColumn(name = "statut", referencedColumnName = "idstatut_eleve")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private StatutEleve statut;
-    @JoinColumn(name = "tuteur_eleve", referencedColumnName = "idtuteur_eleve", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private TuteurEleve tuteurEleve;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "eleve1", fetch = FetchType.LAZY)
-    private List<Inscription> inscriptionList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "eleve1", fetch = FetchType.LAZY)
-    private Bulletin bulletin;
+    @JoinColumn(name = "Sexe_idSexe", referencedColumnName = "idSexe", nullable = false)
+    @ManyToOne(optional = false)
+    private Sexe sexeidSexe;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "eleveidEleve")
+    private List<Suivisessionclasseeleve> suivisessionclasseeleveList;
 
     public Eleve() {
     }
 
-    public Eleve(Integer ideleve) {
-        this.ideleve = ideleve;
+    public Eleve(Integer idEleve) {
+        this.idEleve = idEleve;
     }
 
-    public Eleve(Integer ideleve, String nomEleve, String prenomEleve, Date dateNaissance, Date dateCreation) {
-        this.ideleve = ideleve;
+    public Eleve(Integer idEleve, String nomEleve, Date dateCreation, Date dateModification) {
+        this.idEleve = idEleve;
         this.nomEleve = nomEleve;
-        this.prenomEleve = prenomEleve;
-        this.dateNaissance = dateNaissance;
         this.dateCreation = dateCreation;
+        this.dateModification = dateModification;
     }
 
-    public Integer getIdeleve() {
-        return ideleve;
+    public Integer getIdEleve() {
+        return idEleve;
     }
 
-    public void setIdeleve(Integer ideleve) {
-        this.ideleve = ideleve;
+    public void setIdEleve(Integer idEleve) {
+        this.idEleve = idEleve;
     }
 
     public String getNomEleve() {
@@ -130,6 +118,14 @@ public class Eleve implements Serializable {
         this.prenomEleve = prenomEleve;
     }
 
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
     public String getAdresse() {
         return adresse;
     }
@@ -138,12 +134,12 @@ public class Eleve implements Serializable {
         this.adresse = adresse;
     }
 
-    public Date getDateNaissance() {
-        return dateNaissance;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setDateNaissance(Date dateNaissance) {
-        this.dateNaissance = dateNaissance;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public Date getDateCreation() {
@@ -162,58 +158,26 @@ public class Eleve implements Serializable {
         this.dateModification = dateModification;
     }
 
-    public Note getNote() {
-        return note;
+    public Sexe getSexeidSexe() {
+        return sexeidSexe;
     }
 
-    public void setNote(Note note) {
-        this.note = note;
+    public void setSexeidSexe(Sexe sexeidSexe) {
+        this.sexeidSexe = sexeidSexe;
     }
 
-    public List<Paiement> getPaiementList() {
-        return paiementList;
+    public List<Suivisessionclasseeleve> getSuivisessionclasseeleveList() {
+        return suivisessionclasseeleveList;
     }
 
-    public void setPaiementList(List<Paiement> paiementList) {
-        this.paiementList = paiementList;
-    }
-
-    public StatutEleve getStatut() {
-        return statut;
-    }
-
-    public void setStatut(StatutEleve statut) {
-        this.statut = statut;
-    }
-
-    public TuteurEleve getTuteurEleve() {
-        return tuteurEleve;
-    }
-
-    public void setTuteurEleve(TuteurEleve tuteurEleve) {
-        this.tuteurEleve = tuteurEleve;
-    }
-
-    public List<Inscription> getInscriptionList() {
-        return inscriptionList;
-    }
-
-    public void setInscriptionList(List<Inscription> inscriptionList) {
-        this.inscriptionList = inscriptionList;
-    }
-
-    public Bulletin getBulletin() {
-        return bulletin;
-    }
-
-    public void setBulletin(Bulletin bulletin) {
-        this.bulletin = bulletin;
+    public void setSuivisessionclasseeleveList(List<Suivisessionclasseeleve> suivisessionclasseeleveList) {
+        this.suivisessionclasseeleveList = suivisessionclasseeleveList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (ideleve != null ? ideleve.hashCode() : 0);
+        hash += (idEleve != null ? idEleve.hashCode() : 0);
         return hash;
     }
 
@@ -224,7 +188,7 @@ public class Eleve implements Serializable {
             return false;
         }
         Eleve other = (Eleve) object;
-        if ((this.ideleve == null && other.ideleve != null) || (this.ideleve != null && !this.ideleve.equals(other.ideleve))) {
+        if ((this.idEleve == null && other.idEleve != null) || (this.idEleve != null && !this.idEleve.equals(other.idEleve))) {
             return false;
         }
         return true;
@@ -232,7 +196,7 @@ public class Eleve implements Serializable {
 
     @Override
     public String toString() {
-        return "geschool.persistence.model.Eleve[ ideleve=" + ideleve + " ]";
+        return "geschool.persistence.model.Eleve[ idEleve=" + idEleve + " ]";
     }
     
 }

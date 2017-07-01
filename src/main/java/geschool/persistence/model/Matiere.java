@@ -6,17 +6,15 @@
 package geschool.persistence.model;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,78 +27,75 @@ import javax.validation.constraints.Size;
 @Table(name = "matiere", catalog = "gestschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Matiere.findAll", query = "SELECT m FROM Matiere m"),
-    @NamedQuery(name = "Matiere.findByIdmatiere", query = "SELECT m FROM Matiere m WHERE m.idmatiere = :idmatiere"),
-    @NamedQuery(name = "Matiere.findByLibelle", query = "SELECT m FROM Matiere m WHERE m.libelle = :libelle"),
-    @NamedQuery(name = "Matiere.findByCoefficient", query = "SELECT m FROM Matiere m WHERE m.coefficient = :coefficient")})
+    @NamedQuery(name = "Matiere.findByIdMatiere", query = "SELECT m FROM Matiere m WHERE m.idMatiere = :idMatiere"),
+    @NamedQuery(name = "Matiere.findByLibelleMatiere", query = "SELECT m FROM Matiere m WHERE m.libelleMatiere = :libelleMatiere"),
+    @NamedQuery(name = "Matiere.findBySigleMatiere", query = "SELECT m FROM Matiere m WHERE m.sigleMatiere = :sigleMatiere")})
 public class Matiere implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idmatiere", nullable = false)
-    private Integer idmatiere;
-    @Size(max = 45)
-    @Column(name = "libelle", length = 45)
-    private String libelle;
-    @Column(name = "coefficient")
-    private Integer coefficient;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "matiere1", fetch = FetchType.LAZY)
-    private Note note;
-    @JoinColumn(name = "enseignement", referencedColumnName = "idenseignement", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Enseignement enseignement;
+    @Column(name = "idMatiere", nullable = false)
+    private Integer idMatiere;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 260)
+    @Column(name = "libelleMatiere", nullable = false, length = 260)
+    private String libelleMatiere;
+    @Size(max = 260)
+    @Column(name = "sigleMatiere", length = 260)
+    private String sigleMatiere;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "matiereidMatiere")
+    private List<Suivisessionclassematiere> suivisessionclassematiereList;
 
     public Matiere() {
     }
 
-    public Matiere(Integer idmatiere) {
-        this.idmatiere = idmatiere;
+    public Matiere(Integer idMatiere) {
+        this.idMatiere = idMatiere;
     }
 
-    public Integer getIdmatiere() {
-        return idmatiere;
+    public Matiere(Integer idMatiere, String libelleMatiere) {
+        this.idMatiere = idMatiere;
+        this.libelleMatiere = libelleMatiere;
     }
 
-    public void setIdmatiere(Integer idmatiere) {
-        this.idmatiere = idmatiere;
+    public Integer getIdMatiere() {
+        return idMatiere;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public void setIdMatiere(Integer idMatiere) {
+        this.idMatiere = idMatiere;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public String getLibelleMatiere() {
+        return libelleMatiere;
     }
 
-    public Integer getCoefficient() {
-        return coefficient;
+    public void setLibelleMatiere(String libelleMatiere) {
+        this.libelleMatiere = libelleMatiere;
     }
 
-    public void setCoefficient(Integer coefficient) {
-        this.coefficient = coefficient;
+    public String getSigleMatiere() {
+        return sigleMatiere;
     }
 
-    public Note getNote() {
-        return note;
+    public void setSigleMatiere(String sigleMatiere) {
+        this.sigleMatiere = sigleMatiere;
     }
 
-    public void setNote(Note note) {
-        this.note = note;
+    public List<Suivisessionclassematiere> getSuivisessionclassematiereList() {
+        return suivisessionclassematiereList;
     }
 
-    public Enseignement getEnseignement() {
-        return enseignement;
-    }
-
-    public void setEnseignement(Enseignement enseignement) {
-        this.enseignement = enseignement;
+    public void setSuivisessionclassematiereList(List<Suivisessionclassematiere> suivisessionclassematiereList) {
+        this.suivisessionclassematiereList = suivisessionclassematiereList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idmatiere != null ? idmatiere.hashCode() : 0);
+        hash += (idMatiere != null ? idMatiere.hashCode() : 0);
         return hash;
     }
 
@@ -111,7 +106,7 @@ public class Matiere implements Serializable {
             return false;
         }
         Matiere other = (Matiere) object;
-        if ((this.idmatiere == null && other.idmatiere != null) || (this.idmatiere != null && !this.idmatiere.equals(other.idmatiere))) {
+        if ((this.idMatiere == null && other.idMatiere != null) || (this.idMatiere != null && !this.idMatiere.equals(other.idMatiere))) {
             return false;
         }
         return true;
@@ -119,7 +114,7 @@ public class Matiere implements Serializable {
 
     @Override
     public String toString() {
-        return "geschool.persistence.model.Matiere[ idmatiere=" + idmatiere + " ]";
+        return "geschool.persistence.model.Matiere[ idMatiere=" + idMatiere + " ]";
     }
     
 }

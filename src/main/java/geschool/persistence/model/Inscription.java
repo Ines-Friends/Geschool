@@ -6,22 +6,18 @@
 package geschool.persistence.model;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,135 +29,131 @@ import javax.validation.constraints.Size;
 @Table(name = "inscription", catalog = "gestschool", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Inscription.findAll", query = "SELECT i FROM Inscription i"),
-    @NamedQuery(name = "Inscription.findByIdinscription", query = "SELECT i FROM Inscription i WHERE i.inscriptionPK.idinscription = :idinscription"),
-    @NamedQuery(name = "Inscription.findByFraisInscription", query = "SELECT i FROM Inscription i WHERE i.fraisInscription = :fraisInscription"),
-    @NamedQuery(name = "Inscription.findByAutreFrais", query = "SELECT i FROM Inscription i WHERE i.autreFrais = :autreFrais"),
-    @NamedQuery(name = "Inscription.findByDateInscrit", query = "SELECT i FROM Inscription i WHERE i.dateInscrit = :dateInscrit"),
-    @NamedQuery(name = "Inscription.findByEleve", query = "SELECT i FROM Inscription i WHERE i.inscriptionPK.eleve = :eleve"),
-    @NamedQuery(name = "Inscription.findByClasse", query = "SELECT i FROM Inscription i WHERE i.inscriptionPK.classe = :classe"),
-    @NamedQuery(name = "Inscription.findByAnneeScolaire", query = "SELECT i FROM Inscription i WHERE i.inscriptionPK.anneeScolaire = :anneeScolaire")})
+    @NamedQuery(name = "Inscription.findByIdInscription", query = "SELECT i FROM Inscription i WHERE i.idInscription = :idInscription"),
+    @NamedQuery(name = "Inscription.findByCommentaire", query = "SELECT i FROM Inscription i WHERE i.commentaire = :commentaire"),
+    @NamedQuery(name = "Inscription.findByTranche1Ok", query = "SELECT i FROM Inscription i WHERE i.tranche1Ok = :tranche1Ok"),
+    @NamedQuery(name = "Inscription.findByTranche2Ok", query = "SELECT i FROM Inscription i WHERE i.tranche2Ok = :tranche2Ok"),
+    @NamedQuery(name = "Inscription.findByTranche3Ok", query = "SELECT i FROM Inscription i WHERE i.tranche3Ok = :tranche3Ok")})
 public class Inscription implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected InscriptionPK inscriptionPK;
-    @Size(max = 45)
-    @Column(name = "frais_inscription", length = 45)
-    private String fraisInscription;
-    @Size(max = 45)
-    @Column(name = "autre_frais", length = 45)
-    private String autreFrais;
+    @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "date_inscrit", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date dateInscrit;
-    @JoinColumn(name = "annee_scolaire", referencedColumnName = "idannee_scolaire", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private AnneeScolaire anneeScolaire1;
-    @JoinColumn(name = "classe", referencedColumnName = "idclasse", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Classe classe1;
-    @JoinColumn(name = "eleve", referencedColumnName = "ideleve", nullable = false, insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Eleve eleve1;
-    @JoinColumn(name = "statut", referencedColumnName = "idstatut_inscription")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private StatutInscription statut;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inscription", fetch = FetchType.LAZY)
-    private List<DetailPaiement> detailPaiementList;
+    @Column(name = "idInscription", nullable = false)
+    private Integer idInscription;
+    @Size(max = 255)
+    @Column(name = "commentaire", length = 255)
+    private String commentaire;
+    @Column(name = "Tranche1Ok")
+    private Integer tranche1Ok;
+    @Column(name = "Tranche2Ok")
+    private Integer tranche2Ok;
+    @Column(name = "Tranche3Ok")
+    private Integer tranche3Ok;
+    @JoinColumn(name = "SuiviSessionClasseEleve_Eleve_idEleve", referencedColumnName = "Eleve_idEleve", nullable = false)
+    @ManyToOne(optional = false)
+    private Suivisessionclasseeleve suiviSessionClasseEleveEleveidEleve;
+    @JoinColumn(name = "SuiviParametrageInscription_idSuiviParametrageInscription", referencedColumnName = "idSuiviParametrageInscription", nullable = false)
+    @ManyToOne(optional = false)
+    private Suiviparametrageinscription suiviParametrageInscriptionidSuiviParametrageInscription;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inscriptionidInscription")
+    private List<Tranche2> tranche2List;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inscriptionidInscription")
+    private List<Tranche1> tranche1List;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "inscriptionidInscription")
+    private List<Tranche3> tranche3List;
 
     public Inscription() {
     }
 
-    public Inscription(InscriptionPK inscriptionPK) {
-        this.inscriptionPK = inscriptionPK;
+    public Inscription(Integer idInscription) {
+        this.idInscription = idInscription;
     }
 
-    public Inscription(InscriptionPK inscriptionPK, Date dateInscrit) {
-        this.inscriptionPK = inscriptionPK;
-        this.dateInscrit = dateInscrit;
+    public Integer getIdInscription() {
+        return idInscription;
     }
 
-    public Inscription(int idinscription, int eleve, int classe, int anneeScolaire) {
-        this.inscriptionPK = new InscriptionPK(idinscription, eleve, classe, anneeScolaire);
+    public void setIdInscription(Integer idInscription) {
+        this.idInscription = idInscription;
     }
 
-    public InscriptionPK getInscriptionPK() {
-        return inscriptionPK;
+    public String getCommentaire() {
+        return commentaire;
     }
 
-    public void setInscriptionPK(InscriptionPK inscriptionPK) {
-        this.inscriptionPK = inscriptionPK;
+    public void setCommentaire(String commentaire) {
+        this.commentaire = commentaire;
     }
 
-    public String getFraisInscription() {
-        return fraisInscription;
+    public Integer getTranche1Ok() {
+        return tranche1Ok;
     }
 
-    public void setFraisInscription(String fraisInscription) {
-        this.fraisInscription = fraisInscription;
+    public void setTranche1Ok(Integer tranche1Ok) {
+        this.tranche1Ok = tranche1Ok;
     }
 
-    public String getAutreFrais() {
-        return autreFrais;
+    public Integer getTranche2Ok() {
+        return tranche2Ok;
     }
 
-    public void setAutreFrais(String autreFrais) {
-        this.autreFrais = autreFrais;
+    public void setTranche2Ok(Integer tranche2Ok) {
+        this.tranche2Ok = tranche2Ok;
     }
 
-    public Date getDateInscrit() {
-        return dateInscrit;
+    public Integer getTranche3Ok() {
+        return tranche3Ok;
     }
 
-    public void setDateInscrit(Date dateInscrit) {
-        this.dateInscrit = dateInscrit;
+    public void setTranche3Ok(Integer tranche3Ok) {
+        this.tranche3Ok = tranche3Ok;
     }
 
-    public AnneeScolaire getAnneeScolaire1() {
-        return anneeScolaire1;
+    public Suivisessionclasseeleve getSuiviSessionClasseEleveEleveidEleve() {
+        return suiviSessionClasseEleveEleveidEleve;
     }
 
-    public void setAnneeScolaire1(AnneeScolaire anneeScolaire1) {
-        this.anneeScolaire1 = anneeScolaire1;
+    public void setSuiviSessionClasseEleveEleveidEleve(Suivisessionclasseeleve suiviSessionClasseEleveEleveidEleve) {
+        this.suiviSessionClasseEleveEleveidEleve = suiviSessionClasseEleveEleveidEleve;
     }
 
-    public Classe getClasse1() {
-        return classe1;
+    public Suiviparametrageinscription getSuiviParametrageInscriptionidSuiviParametrageInscription() {
+        return suiviParametrageInscriptionidSuiviParametrageInscription;
     }
 
-    public void setClasse1(Classe classe1) {
-        this.classe1 = classe1;
+    public void setSuiviParametrageInscriptionidSuiviParametrageInscription(Suiviparametrageinscription suiviParametrageInscriptionidSuiviParametrageInscription) {
+        this.suiviParametrageInscriptionidSuiviParametrageInscription = suiviParametrageInscriptionidSuiviParametrageInscription;
     }
 
-    public Eleve getEleve1() {
-        return eleve1;
+    public List<Tranche2> getTranche2List() {
+        return tranche2List;
     }
 
-    public void setEleve1(Eleve eleve1) {
-        this.eleve1 = eleve1;
+    public void setTranche2List(List<Tranche2> tranche2List) {
+        this.tranche2List = tranche2List;
     }
 
-    public StatutInscription getStatut() {
-        return statut;
+    public List<Tranche1> getTranche1List() {
+        return tranche1List;
     }
 
-    public void setStatut(StatutInscription statut) {
-        this.statut = statut;
+    public void setTranche1List(List<Tranche1> tranche1List) {
+        this.tranche1List = tranche1List;
     }
 
-    public List<DetailPaiement> getDetailPaiementList() {
-        return detailPaiementList;
+    public List<Tranche3> getTranche3List() {
+        return tranche3List;
     }
 
-    public void setDetailPaiementList(List<DetailPaiement> detailPaiementList) {
-        this.detailPaiementList = detailPaiementList;
+    public void setTranche3List(List<Tranche3> tranche3List) {
+        this.tranche3List = tranche3List;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (inscriptionPK != null ? inscriptionPK.hashCode() : 0);
+        hash += (idInscription != null ? idInscription.hashCode() : 0);
         return hash;
     }
 
@@ -172,7 +164,7 @@ public class Inscription implements Serializable {
             return false;
         }
         Inscription other = (Inscription) object;
-        if ((this.inscriptionPK == null && other.inscriptionPK != null) || (this.inscriptionPK != null && !this.inscriptionPK.equals(other.inscriptionPK))) {
+        if ((this.idInscription == null && other.idInscription != null) || (this.idInscription != null && !this.idInscription.equals(other.idInscription))) {
             return false;
         }
         return true;
@@ -180,7 +172,7 @@ public class Inscription implements Serializable {
 
     @Override
     public String toString() {
-        return "geschool.persistence.model.Inscription[ inscriptionPK=" + inscriptionPK + " ]";
+        return "geschool.persistence.model.Inscription[ idInscription=" + idInscription + " ]";
     }
     
 }
