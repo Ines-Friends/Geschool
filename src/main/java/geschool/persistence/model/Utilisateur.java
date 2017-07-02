@@ -81,6 +81,13 @@ public class Utilisateur implements Serializable {
         this.login = login;
     }
 
+    public Utilisateur(Integer idUtilisateur, String nomUtilisateur, String login, String password) {
+        this.idUtilisateur = idUtilisateur;
+        this.nomUtilisateur = nomUtilisateur;
+        this.login = login;
+        this.password = password;
+    }
+
     public Integer getIdUtilisateur() {
         return idUtilisateur;
     }
