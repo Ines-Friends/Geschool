@@ -1,3 +1,11 @@
+<%-- 
+    Document   : home
+    Created on : 4 juil. 2017, 07:15:00
+    Author     : xavier_ng
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -81,7 +89,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="index.html" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="<c:url value="/UtilisateurServlet?action=logout"/>" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
