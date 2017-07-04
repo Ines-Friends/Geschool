@@ -34,12 +34,8 @@ import javax.validation.constraints.Size;
     @UniqueConstraint(columnNames = {"login"})})
 @NamedQueries({
     @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u"),
-    @NamedQuery(name = "Utilisateur.findByIdUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur"),
-    @NamedQuery(name = "Utilisateur.findByNomUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.nomUtilisateur = :nomUtilisateur"),
-    @NamedQuery(name = "Utilisateur.findByLogin", query = "SELECT u FROM Utilisateur u WHERE u.login = :login"),
-    @NamedQuery(name = "Utilisateur.findByPassword", query = "SELECT u FROM Utilisateur u WHERE u.password = :password"),
-    @NamedQuery(name = "Utilisateur.findByDateCreation", query = "SELECT u FROM Utilisateur u WHERE u.dateCreation = :dateCreation"),
-    @NamedQuery(name = "Utilisateur.findByEtatConnexion", query = "SELECT u FROM Utilisateur u WHERE u.etatConnexion = :etatConnexion")})
+    @NamedQuery(name = "Utilisateur.rechercheIdUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur"),
+    @NamedQuery(name = "Utilisateur.rechercheLoginEtPassword", query = "SELECT u FROM Utilisateur u WHERE u.login = :login AND u.password = :password")})
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,6 +75,13 @@ public class Utilisateur implements Serializable {
     public Utilisateur(Integer idUtilisateur, String login) {
         this.idUtilisateur = idUtilisateur;
         this.login = login;
+    }
+
+    public Utilisateur(Integer idUtilisateur, String nomUtilisateur, String login, String password) {
+        this.idUtilisateur = idUtilisateur;
+        this.nomUtilisateur = nomUtilisateur;
+        this.login = login;
+        this.password = password;
     }
 
     public Integer getIdUtilisateur() {
