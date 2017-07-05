@@ -35,6 +35,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Utilisateur.findAll", query = "SELECT u FROM Utilisateur u"),
     @NamedQuery(name = "Utilisateur.rechercheIdUtilisateur", query = "SELECT u FROM Utilisateur u WHERE u.idUtilisateur = :idUtilisateur"),
+    @NamedQuery(name = "Utilisateur.rechercheUtilisateurParMotDePasse", query = "SELECT u FROM Utilisateur u WHERE u.password = :password"),
     @NamedQuery(name = "Utilisateur.rechercheLoginEtPassword", query = "SELECT u FROM Utilisateur u WHERE u.login = :login AND u.password = :password")})
 public class Utilisateur implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -64,7 +64,7 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="img/avatar.png" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Admin</span>
+                                    <span class="hidden-xs"><c:out value="${sessionScope.sessionUtilisateur.login}"/></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -72,7 +72,7 @@
                                         <img src="img/avatar.png" class="img-circle" alt="User Image">
 
                                         <p>
-                                            Adminstrateur
+                                            <c:out value="${sessionScope.sessionUtilisateur.login}"/>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
@@ -80,7 +80,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="<c:url value="/UtilisateurServlet?action=logout"/>" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -101,7 +101,7 @@
                             <img src="dist/img/avatar.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Adminstrateur</p>
+                            <p><c:out value="${sessionScope.sessionUtilisateur.login}"/></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>

@@ -74,14 +74,14 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="img/avatar.png" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Admin</span>
+                                    <span class="hidden-xs"><c:out value="${sessionScope.sessionUtilisateur.login}"/></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
                                         <img src="img/avatar.png" class="img-circle" alt="User Image">
                                         <p>
-                                            Adminstrateur
+                                            <c:out value="${sessionScope.sessionUtilisateur.login}"/>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
@@ -110,7 +110,7 @@
                             <img src="img/avatar.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Adminstrateur</p>
+                            <p><c:out value="${sessionScope.sessionUtilisateur.login}"/></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -485,9 +485,8 @@
                     //Boolean - whether to make the chart responsive to window resizing
                     responsive: true,
                     // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: true
                     //String - A legend template
-                    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
                 };
                 //Create pie or douhnut chart
                 // You can switch between pie and douhnut using the method below.

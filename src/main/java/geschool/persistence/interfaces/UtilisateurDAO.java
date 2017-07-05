@@ -15,6 +15,7 @@ import javax.ejb.Local;
 @Local
 public interface UtilisateurDAO {
     Utilisateur rechercheUtilisateur(String login, String password);
+    Utilisateur rechercheUtilisateurParMotDePasse(String password);
     boolean rechercheUtilisateur(String login);
     void majEtatConnexion(Utilisateur u);
 }

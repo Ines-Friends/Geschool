@@ -44,6 +44,7 @@
                 <p class="login-box-msg">Geschool</p>
 
                 <form action="<c:url value="/UtilisateurServlet"/>" method="post">
+                    <input type="hidden" class="form-control" name="action" value="login">
                     <div class="form-group has-feedback">
                         <input type="text" class="form-control" name="login" placeholder="Saisisser un login">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
