@@ -12,7 +12,8 @@ package geschool.metier.utils;
 public final class AllUrl {
 //    Classe permettant d'avoir toutes les urls vers les pages jsp
     public static final String URL_PAGE_LOGIN = "/index.jsp";
-    public static final String URL_PAGE_ACCUEIL = "/home.html";
-    public static final String URL_PAGE_LOCKSCREEN = "/lockscreen.html";
+    public static final String URL_PAGE_LOGIN_REDIRECT = "/Geschool/index.jsp";
+    public static final String URL_PAGE_ACCUEIL = "/home.jsp";
+    public static final String URL_PAGE_LOCKSCREEN = "/lockscreen.jsp";
     public static final String URL_ = "/";
 }

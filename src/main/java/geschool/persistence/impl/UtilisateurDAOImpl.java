@@ -38,4 +38,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
     public void majEtatConnexion(Utilisateur u) {
         em.merge(u);
     }
+
+    @Override
+    public Utilisateur rechercheUtilisateurParMotDePasse(String password) {
+         Query query = em.createNamedQuery("Utilisateur.rechercheUtilisateurParMotDePasse");
+        query.setParameter("password", password);
+        return (Utilisateur) query.getSingleResult();
+    }
 }

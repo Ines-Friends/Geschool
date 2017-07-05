@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author xavier_ng
  */
 public final class ConnexionValidationForm {
+
     private static final String CHAMP_LOGIN = "login";
     private static final String CHAMP_PASS = "password";
     private static final String REGEX = "[a-zA-Z_0-9]*";
@@ -32,101 +33,137 @@ public final class ConnexionValidationForm {
     public ConnexionValidationForm(UtilisateurDAO uDAO) {
         this.uDAO = uDAO;
     }
+
     public String getResultat() {
-    return resultat;
+        return resultat;
     }
+
     public Map<String, String> getErreurs() {
-    return erreurs;
+        return erreurs;
     }
-    public Utilisateur connecterUtilisateur( HttpServletRequest request ) throws Exception{
-    /* Récupération des champs du formulaire */
-    String login = getValeurChamp( request, CHAMP_LOGIN );
-    String motDePasse = getValeurChamp( request, CHAMP_PASS );
-    Utilisateur utilisateur = new Utilisateur();
-    try {
-            validationLogin(login );
-        } catch ( Exception e ) {
-            setErreur( CHAMP_LOGIN, e.getMessage() );
+
+    public Utilisateur connecterUtilisateur(HttpServletRequest request) throws Exception {
+        /* Récupération des champs du formulaire */
+        String login = getValeurChamp(request, CHAMP_LOGIN);
+        String motDePasse = getValeurChamp(request, CHAMP_PASS);
+        Utilisateur utilisateur = new Utilisateur();
+        try {
+            validationLogin(login);
+        } catch (Exception e) {
+            setErreur(CHAMP_LOGIN, e.getMessage());
         }
-    utilisateur.setLogin(login );
-    /* Validation du champ mot de passe. */
-    try {
-    validationMotDePasse( motDePasse );
-    } catch ( Exception e ) {
-    setErreur( CHAMP_PASS, e.getMessage() );
-    }
-    utilisateur.setPassword(motDePasse );
-    try{
-        boolean flags = verifUser(utilisateur.getLogin(),utilisateur.getPassword());
-        if(flags == true){
-           utilisateur = uDAO.rechercheUtilisateur(utilisateur.getLogin(), utilisateur.getPassword());
-           resultat = "succes";
-        }else{
-            resultat = "echec";
+        utilisateur.setLogin(login);
+        /* Validation du champ mot de passe. */
+        try {
+            validationMotDePasse(motDePasse);
+        } catch (Exception e) {
+            setErreur(CHAMP_PASS, e.getMessage());
         }
-    } catch ( Exception e ) {
-        setErreur("user", e.getMessage());
+        utilisateur.setPassword(motDePasse);
+        try {
+            boolean flags = verifUser(utilisateur.getLogin(), utilisateur.getPassword());
+            if (flags == true) {
+                utilisateur = uDAO.rechercheUtilisateur(utilisateur.getLogin(), utilisateur.getPassword());
+                resultat = "succes";
+            } else {
+                resultat = "echec";
+            }
+        } catch (Exception e) {
+            setErreur("user", e.getMessage());
+        }
+        /* Initialisation du résultat global de la validation. */
+        if (erreurs.isEmpty()) {
+            resultat = "Succès de la connexion.";
+        } else {
+            resultat = "Échec de la connexion.";
+        }
+        return utilisateur;
     }
-    /* Initialisation du résultat global de la validation. */
-    if ( erreurs.isEmpty() ) {
-    resultat = "Succès de la connexion.";
-    } else {
-    resultat = "Échec de la connexion.";
+
+    public Utilisateur unlockUtilisateur(HttpServletRequest request) throws Exception {
+        String motDePasse = getValeurChamp(request, CHAMP_PASS);
+        Utilisateur utilisateur = new Utilisateur();
+        /* Validation du champ mot de passe. */
+        try {
+            validationMotDePasse(motDePasse);
+        } catch (Exception e) {
+            setErreur(CHAMP_PASS, e.getMessage());
+        }
+        utilisateur.setPassword(motDePasse);
+        try {
+            utilisateur = uDAO.rechercheUtilisateurParMotDePasse(utilisateur.getPassword());
+            if (utilisateur != null) {
+                resultat = "succes";
+            } else {
+                resultat = "echec";
+            }
+        } catch (Exception e) {
+            setErreur("user", e.getMessage());
+        }
+        /* Initialisation du résultat global de la validation. */
+        if (erreurs.isEmpty()) {
+            resultat = "Succès de la connexion.";
+        } else {
+            resultat = "Échec de la connexion.";
+        }
+        return utilisateur;
     }
-    return utilisateur;
-    }
+
     /**
-    * Valide le login.
-    */
-    private void validationLogin( String login ) throws Exception {
+     * Valide le login.
+     */
+    private void validationLogin(String login) throws Exception {
         Pattern p = Pattern.compile(REGEX);
         Matcher m = p.matcher(login);
-        if(login != null){
-            if ( !m.matches()) {
-                throw new Exception( "Les caractères saisies ne sont pas correctes" );
+        if (login != null) {
+            if (!m.matches()) {
+                throw new Exception("Les caractères saisies ne sont pas correctes");
             }
-        }else{
-            throw new Exception( "Le Champ est vide" );
+        } else {
+            throw new Exception("Le Champ est vide");
         }
     }
+
     /**
-    * Valide le mot de passe saisi.
-    */
-    private void validationMotDePasse( String motDePasse ) throws Exception {
+     * Valide le mot de passe saisi.
+     */
+    private void validationMotDePasse(String motDePasse) throws Exception {
         Pattern p = Pattern.compile(REGEX);
         Matcher m = p.matcher(motDePasse);
-        if(motDePasse != null){
-            if ( !m.matches()) {
-                throw new Exception( "Les caractères saisies ne sont pas correctes" );
+        if (motDePasse != null) {
+            if (!m.matches()) {
+                throw new Exception("Les caractères saisies ne sont pas correctes");
             }
-        }else{
-            throw new Exception( "Le Champ est vide" );
+        } else {
+            throw new Exception("Le Champ est vide");
         }
     }
-    
+
     private boolean verifUser(String login, String password) throws Exception {
-        Utilisateur u = uDAO.rechercheUtilisateur(login,password);
+        Utilisateur u = uDAO.rechercheUtilisateur(login, password);
         boolean flags = false;
-        if (  u.getIdUtilisateur()!=null ) {
+        if (u.getIdUtilisateur() != null) {
             flags = true;
         } else {
-            throw new Exception( "Utilisateur non enregistré dans le système contactez votre administrateur" );
+            throw new Exception("Utilisateur non enregistré dans le système contactez votre administrateur");
         }
         return flags;
     }
     /*
-    * Ajoute un message correspondant au champ spécifié à la map des erreurs.
-    */
-    private void setErreur( String champ, String message ) {
-        erreurs.put( champ, message );
+     * Ajoute un message correspondant au champ spécifié à la map des erreurs.
+     */
+
+    private void setErreur(String champ, String message) {
+        erreurs.put(champ, message);
     }
     /*
-    * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
-    * sinon.
-    */
-    private static String getValeurChamp( HttpServletRequest request, String nomChamp ) {
-        String valeur = request.getParameter( nomChamp );
-        if ( valeur == null || valeur.trim().length() == 0 ) {
+     * Méthode utilitaire qui retourne null si un champ est vide, et son contenu
+     * sinon.
+     */
+
+    private static String getValeurChamp(HttpServletRequest request, String nomChamp) {
+        String valeur = request.getParameter(nomChamp);
+        if (valeur == null || valeur.trim().length() == 0) {
             return null;
         } else {
             return valeur;
