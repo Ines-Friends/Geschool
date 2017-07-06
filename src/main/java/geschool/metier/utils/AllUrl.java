@@ -15,5 +15,6 @@ public final class AllUrl {
     public static final String URL_PAGE_LOGIN_REDIRECT = "/Geschool/index.jsp";
     public static final String URL_PAGE_ACCUEIL = "/home.jsp";
     public static final String URL_PAGE_LOCKSCREEN = "/lockscreen.jsp";
+    public static final String URL_PAGE_AJOUT_SESSION_ACADEMIQUE = "/ajoutSessionAcademique.jsp";
     public static final String URL_ = "/";
 }

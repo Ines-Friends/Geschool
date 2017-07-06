@@ -80,6 +80,15 @@ public class Session implements Serializable {
         this.anneFin = anneFin;
     }
 
+    public Session(String idSession, int anneeDebut, int anneFin, Date dateDebut, Date dateFin, Integer actif) {
+        this.idSession = idSession;
+        this.anneeDebut = anneeDebut;
+        this.anneFin = anneFin;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.actif = actif;
+    }
+
     public String getIdSession() {
         return idSession;
     }
