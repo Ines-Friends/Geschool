@@ -49,7 +49,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="home.html" class="logo">
+                <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>G</b></span>
                     <!-- logo for regular state and mobile devices -->
@@ -178,14 +178,14 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-calendar"></i>
+                                    <a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar"></i>
                                         <span>Liste</span>
                                         <span class="pull-right-container">
                                             <span class="label label-primary pull-right">4</span>
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="form2.html"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
+                                <li><a href="<c:url value="/AutoServlet?action=ajoutsession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

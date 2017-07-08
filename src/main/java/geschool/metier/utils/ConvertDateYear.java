@@ -19,9 +19,8 @@ public final class ConvertDateYear {
     public static List<Date> DateTransform (String DateList)throws ParseException{
         List<Date> dateListe = new ArrayList<Date>();
         String dateStr = DateList;
-         String[] dateList = dateStr.split("/");
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat formaterYear = new SimpleDateFormat("yyyy");
+         String[] dateList = dateStr.split("-");
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         
         dateListe.add(formater.parse(dateList[0]));
         dateListe.add(formater.parse(dateList[1]));

@@ -1,18 +1,17 @@
 <%-- 
-    Document   : 404
-    Created on : 3 juil. 2017, 00:54:49
+    Document   : listSessesion
+    Created on : 8 juil. 2017, 02:50:32
     Author     : xavier_ng
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>404 Page not found</title>
+        <title>Geschool | Tableau Session </title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -21,6 +20,8 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- DataTables -->
+        <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -41,7 +42,7 @@
                 <!-- Logo -->
                 <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><b>A</b>LT</span>
+                    <span class="logo-mini"><b>G</b></span>
                     <!-- logo for regular state and mobile devices -->
                     <span class="logo-lg"><b>Geschool</b></span>
                 </a>
@@ -70,7 +71,6 @@
                                     <!-- User image -->
                                     <li class="user-header">
                                         <img src="img/avatar.png" class="img-circle" alt="User Image">
-
                                         <p>
                                             <c:out value="${sessionScope.sessionUtilisateur.login}"/>
                                         </p>
@@ -98,10 +98,10 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="dist/img/avatar.png" class="img-circle" alt="User Image">
+                            <img src="img/avatar.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p><c:out value="${sessionScope.sessionUtilisateur.login}"/></p>
+                            <p>Adminstrateur</p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -129,14 +129,14 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-table"></i>
+                                    <a href="data.html"><i class="fa fa-table"></i>
                                         <span>Liste d'inscription</span>
                                         <span class="pull-right-container">
                                             <span class="label label-primary pull-right">4</span>
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="#"><i class="fa fa-user-plus"></i> Nouv. Inscription</a></li>
+                                <li><a href="form.html"><i class="fa fa-user-plus"></i> Nouv. Inscription</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -156,7 +156,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="#"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
+                                <li><a href="form2.html"><i class="glyphicon glyphicon-plus-sign"></i> Nouv. Classes</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -234,30 +234,127 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        404 Error Page
+                        Data Tables
+                        <small>advanced tables</small>
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">404 error</li>
+                        <li><a href="#">Tables</a></li>
+                        <li class="active">Data tables</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-                    <div class="error-page">
-                        <h2 class="headline text-yellow"> 404</h2>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <!-- /.box -->
 
-                        <div class="error-content">
-                            <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
-
-                            <p>
-                                We could not find the page you were looking for.
-                                Meanwhile, you may <a href="index.html">return to dashboard</a> or try using the search form.
-                            </p>
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">Data Table With Full Features</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Rendering engine</th>
+                                                <th>Browser</th>
+                                                <th>Platform(s)</th>
+                                                <th>Engine version</th>
+                                                <th>CSS grade</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Trident</td>
+                                                <td>Internet
+                                                    Explorer 4.0
+                                                </td>
+                                                <td>Win 95+</td>
+                                                <td> 4</td>
+                                                <td>X</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trident</td>
+                                                <td>Internet
+                                                    Explorer 5.0
+                                                </td>
+                                                <td>Win 95+</td>
+                                                <td>5</td>
+                                                <td>C</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trident</td>
+                                                <td>Internet
+                                                    Explorer 5.5
+                                                </td>
+                                                <td>Win 95+</td>
+                                                <td>5.5</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trident</td>
+                                                <td>Internet
+                                                    Explorer 6
+                                                </td>
+                                                <td>Win 98+</td>
+                                                <td>6</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trident</td>
+                                                <td>Internet Explorer 7</td>
+                                                <td>Win XP SP2+</td>
+                                                <td>7</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Trident</td>
+                                                <td>AOL browser (AOL desktop)</td>
+                                                <td>Win XP</td>
+                                                <td>6</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Firefox 1.0</td>
+                                                <td>Win 98+ / OSX.2+</td>
+                                                <td>1.7</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Firefox 1.5</td>
+                                                <td>Win 98+ / OSX.2+</td>
+                                                <td>1.8</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Firefox 2.0</td>
+                                                <td>Win 98+ / OSX.2+</td>
+                                                <td>1.8</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Firefox 3.0</td>
+                                                <td>Win 2k+ / OSX.3+</td>
+                                                <td>1.9</td>
+                                                <td>A</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                            <!-- /.box -->
                         </div>
-                        <!-- /.error-content -->
+                        <!-- /.col -->
                     </div>
-                    <!-- /.error-page -->
+                    <!-- /.row -->
                 </section>
                 <!-- /.content -->
             </div>
@@ -280,11 +377,30 @@
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
         <script src="js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <!-- SlimScroll -->
+        <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
         <!-- FastClick -->
         <script src="plugins/fastclick/fastclick.js"></script>
         <!-- AdminLTE App -->
         <script src="js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="js/demo.js"></script>
+        <!-- page script -->
+        <script>
+            $(function () {
+                $("#example1").DataTable();
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
     </body>
 </html>

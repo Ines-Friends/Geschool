@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Geschool | Création Session</title>
+        <title>Geschool | Ajout Session</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -46,7 +46,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="home.html" class="logo">
+                <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>G</b></span>
                     <!-- logo for regular state and mobile devices -->
@@ -175,14 +175,14 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-calendar"></i>
+                                    <a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar"></i>
                                         <span>Liste</span>
                                         <span class="pull-right-container">
                                             <span class="label label-primary pull-right">4</span>
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="form2.html"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
+                                <li><a href="<c:url value="/AutoServlet?action=ajoutsession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -239,14 +239,10 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
-                        Advanced Form Elements
-                        <small>Preview</small>
-                    </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Forms</a></li>
-                        <li class="active">Advanced Elements</li>
+                        <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Session Academique</a></li>
+                        <li class="active">Ajout session</li>
                     </ol>
                 </section>
 
@@ -262,7 +258,7 @@
                                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
                             </div>
                         </div>
-                        <form action="#" method="post">
+                        <form action="<c:url value="/SessionServlet"/>" method="post">
                             <!-- /.box-header -->
                             <div class="box-body">
                                 <div class="row">
@@ -274,7 +270,7 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input type="text" class="form-control pull-right" id="reservation">
+                                                <input type="text" class="form-control pull-right" id="reservation" name="session">
                                             </div>
                                         </div>
                                         <!-- /.form-group -->

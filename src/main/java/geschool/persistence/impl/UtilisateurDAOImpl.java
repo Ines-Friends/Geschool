@@ -45,4 +45,11 @@ public class UtilisateurDAOImpl implements UtilisateurDAO{
         query.setParameter("password", password);
         return (Utilisateur) query.getSingleResult();
     }
+
+    @Override
+    public Utilisateur rechercheUtilisateurAvecId(Integer id) {
+        Query query = em.createNamedQuery("Utilisateur.rechercheUtilisateurAvecId");
+        query.setParameter("idUtilisateur", id);
+        return (Utilisateur) query.getSingleResult();
+    }
 }

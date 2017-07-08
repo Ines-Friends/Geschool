@@ -6,6 +6,7 @@
 package geschool.persistence.interfaces;
 
 import geschool.persistence.model.Session;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -17,5 +18,6 @@ public interface SessionDAO {
     void creerSession(Session s);
     void modifSession(Session s);
     Session chercherSession(String idSession);
-    
+    Session chercherSessionEnCours(Session s);
+    List<Session> chercherToutesLesSessions();
 }
