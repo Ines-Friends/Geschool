@@ -46,9 +46,10 @@ public class AutoServlet extends HttpServlet {
            if(action.equals("home")){
                this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
            }
-           if(action.equals("listesession")){
-               this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_TABLEAU_SESSION ).forward( request, response );
-           }
+            if(action.equals("listesession")){
+                request.setAttribute("action", "listesession");
+                this.getServletContext().getRequestDispatcher( "/SessionServlet" ).forward( request, response );
+            }
            if(action.equals("ajoutsession")){
                this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_AJOUT_SESSION_ACADEMIQUE ).forward( request, response );
            }

@@ -11,20 +11,20 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | 500 Error</title>
+        <title>500 Error</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
-        <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
         <!-- Ionicons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="../../dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="css/AdminLTE.min.css">
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
-        <link rel="stylesheet" href="../../dist/css/skins/_all-skins.min.css">
+        <link rel="stylesheet" href="css/skins/_all-skins.min.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -38,7 +38,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="index2.html" class="logo">
+                <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>A</b>LT</span>
                     <!-- logo for regular state and mobile devices -->
@@ -63,7 +63,7 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="img/avatar.png" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Admin</span>
+                                    <span class="hidden-xs"><c:out value="${sessionScope.sessionUtilisateur.login}"/></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
@@ -71,7 +71,7 @@
                                         <img src="img/avatar.png" class="img-circle" alt="User Image">
 
                                         <p>
-                                            Adminstrateur
+                                            <c:out value="${sessionScope.sessionUtilisateur.login}"/>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
@@ -79,7 +79,7 @@
                                     <!-- Menu Footer-->
                                     <li class="user-footer">
                                         <div class="pull-left">
-                                            <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                            <a href="<c:url value="/UtilisateurServlet?action=logout"/>" class="btn btn-default btn-flat">Sign out</a>
                                         </div>
                                     </li>
                                 </ul>
@@ -100,7 +100,7 @@
                             <img src="dist/img/avatar.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Adminstrateur</p>
+                            <p><c:out value="${sessionScope.sessionUtilisateur.login}"/></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -168,14 +168,14 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-calendar"></i>
+                                    <a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar"></i>
                                         <span>Liste</span>
                                         <span class="pull-right-container">
                                             <span class="label label-primary pull-right">4</span>
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="#"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
+                                <li><a href="<c:url value="/AutoServlet?action=ajoutsession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
                             </ul>
                         </li>
                         <li class="treeview">

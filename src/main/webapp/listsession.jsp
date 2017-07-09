@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib  uri="http://www.joda.org/joda/time/tags" prefix="joda"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,7 +29,6 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="css/skins/_all-skins.min.css">
-
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -171,9 +172,6 @@
                                 <li>
                                     <a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar"></i>
                                         <span>Liste</span>
-                                        <span class="pull-right-container">
-                                            <span class="label label-primary pull-right">4</span>
-                                        </span>
                                     </a>
                                 </li>
                                 <li><a href="<c:url value="/AutoServlet?action=ajoutsession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
@@ -233,15 +231,11 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
-                        Data Tables
-                        <small>advanced tables</small>
-                    </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li><a href="#">Tables</a></li>
-                        <li class="active">Data tables</li>
+                        <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Session Academique</a></li>
                     </ol>
+                    <br/>
                 </section>
 
                 <!-- Main content -->
@@ -252,99 +246,42 @@
 
                             <div class="box">
                                 <div class="box-header">
-                                    <h3 class="box-title">Data Table With Full Features</h3>
+                                    <h3 class="box-title">Tableau des Sessions académiques</h3>
                                 </div>
                                 <!-- /.box-header -->
                                 <div class="box-body">
                                     <table id="example1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>ID</th>
+                                                <th>Date début</th>
+                                                <th>Date Fin</th>
+                                                <th>Active</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 4.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td> 4</td>
-                                                <td>X</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.0
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5</td>
-                                                <td>C</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 5.5
-                                                </td>
-                                                <td>Win 95+</td>
-                                                <td>5.5</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet
-                                                    Explorer 6
-                                                </td>
-                                                <td>Win 98+</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>Internet Explorer 7</td>
-                                                <td>Win XP SP2+</td>
-                                                <td>7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Trident</td>
-                                                <td>AOL browser (AOL desktop)</td>
-                                                <td>Win XP</td>
-                                                <td>6</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.7</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 1.5</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 2.0</td>
-                                                <td>Win 98+ / OSX.2+</td>
-                                                <td>1.8</td>
-                                                <td>A</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gecko</td>
-                                                <td>Firefox 3.0</td>
-                                                <td>Win 2k+ / OSX.3+</td>
-                                                <td>1.9</td>
-                                                <td>A</td>
-                                            </tr>
+                                            <c:if test="${listesession.size() != 0}">
+                                                <c:forEach items="${ requestScope.listesession }" var="session" varStatus="boucle">
+                                                    <tr>
+                                                        <td><c:out value="${session.idSession}"/></td>
+                                                        <td><fmt:formatDate value="${session.dateDebut}" pattern="dd-MM-yyyy" /></td>
+                                                        <td><fmt:formatDate value="${session.dateFin}" pattern="dd-MM-yyyy" /></td>
+                                                        <c:if test="${session.actif == 1}">
+                                                            <td>Oui</td>
+                                                            <td>
+                                                                <a href="<c:url value="/SessionServlet?action=desactive&date=${session.idSession}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="btn btn-default"><i class="fa fa-check"></i></a>
+                                                            </td>
+                                                        </c:if>
+                                                        <c:if test="${session.actif == 0}">
+                                                            <td>Non</td>
+                                                            <td>
+                                                                <a href="<c:url value="/SessionServlet?action=active&date=${session.idSession}&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="btn btn-default"><i class="fa fa-check"></i></a>
+                                                            </td>
+                                                        </c:if>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:if>
                                         </tbody>
                                     </table>
                                 </div>
@@ -355,6 +292,20 @@
                         <!-- /.col -->
                     </div>
                     <!-- /.row -->
+                    <c:if test="${message == 'success'}">
+                        <div id="ajaxSessionServletResponse" class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-check"></i> Success!</h4>
+                            <c:out value="${text}"/>
+                        </div>
+                    </c:if>
+                    <c:if test="${message == 'warning'}">
+                        <div id="ajaxSessionServletResponse" class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h4><i class="icon fa fa-warning"></i>Warning</h4>
+                            <c:out value="${text}"/>
+                        </div>
+                    </c:if>
                 </section>
                 <!-- /.content -->
             </div>
@@ -391,14 +342,23 @@
         <!-- page script -->
         <script>
             $(function () {
-                $("#example1").DataTable();
-                $('#example2').DataTable({
-                    "paging": true,
-                    "lengthChange": true,
-                    "searching": true,
-                    "ordering": true,
-                    "info": true,
-                    "autoWidth": false
+                $('#example1').DataTable();
+                
+                $('#action').on("click",function(event) {
+                    if(this.checked){
+                       var action = $('#action').val();
+                       var session = $('#session').val();
+                        $.ajax({
+                                url : '/SessionServlet',
+                                data : {
+                                         action : action,
+                                         session : session
+                                },
+                                success : function(responseText) {
+                                        $('#ajaxGetUserServletResponse').text(responseText);
+                                }
+                        });
+                    }    
                 });
             });
         </script>

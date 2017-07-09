@@ -161,7 +161,7 @@
                                     <a href="#"><i class="fa fa-table"></i>
                                         <span>Liste de classes</span>
                                         <span class="pull-right-container">
-                                            <span class="label label-primary pull-right">4</span>
+                                            <span class="label label-primary pull-right"></span>
                                         </span>
                                     </a>
                                 </li>

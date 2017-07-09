@@ -244,6 +244,7 @@
                         <li><a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Session Academique</a></li>
                         <li class="active">Ajout session</li>
                     </ol>
+                    <br/>
                 </section>
 
                 <!-- Main content -->
@@ -270,7 +271,9 @@
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input type="text" class="form-control pull-right" id="reservation" name="session">
+                                                <input type="text" class="form-control pull-right" id="reservation" name="date"/>
+                                                <input type="hidden" class="form-control pull-right" name="action" value="ajoutsession"/>
+                                                <input type="hidden" class="form-control pull-right" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
                                             </div>
                                         </div>
                                         <!-- /.form-group -->
@@ -281,24 +284,34 @@
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-default">Cancel</button>
+                                <button type="reset" class="btn btn-default">Cancel</button>
                                 <button type="submit" class="btn btn-info pull-right">valider</button>
                             </div>
                         </form>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="alert alert-danger alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                                Danger alert preview. This alert is dismissable. A wonderful serenity has taken possession of my entire
-                                soul, like these sweet mornings of spring which I enjoy with my whole heart.
-                            </div>
-                            <div class="alert alert-success alert-dismissible">
-                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                                <h4><i class="icon fa fa-check"></i> Success!</h4>
-                                Success alert preview. This alert is dismissable.
-                            </div>
+                            <c:if test="${message == 'error'}">
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                    <c:out value="${form.erreurs}"/>
+                                </div>
+                            </c:if>
+                            <c:if test="${message == 'success'}">
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4><i class="icon fa fa-check"></i> Success!</h4>
+                                    La sessin académique a été créée avec succès
+                                </div>
+                            </c:if>
+                            <c:if test="${message == 'warning'}">
+                                <div class="alert alert-warning alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4><i class="icon fa fa-warning"></i>Warning</h4>
+                                    Une session existe déjà pour cette année!
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                     <!-- /.box -->

@@ -12,16 +12,13 @@ package geschool.metier.utils;
 public final class CreerId {
     public static final String SESSION_ID = "SESS";
     
-    public static String session(int maxId, int anneeDebut, int anneeFin) throws Exception{
+    public static String creerSessionId(int anneeDebut, int anneeFin) throws Exception{
         String sessionId = "";
-        if(maxId != 0){
-            if(anneeDebut != 0 && anneeFin != 0){
-                sessionId = "SESS"+maxId+""+anneeDebut+anneeFin+"";
-            }else{
-                throw new Exception("anneeDebut et anneeFin ont la valeur 0");
-            }
+        
+        if(anneeDebut != 0 && anneeFin != 0){
+            sessionId = "SESS"+anneeDebut+anneeFin+"";
         }else{
-            throw new Exception("maxId égale à 0");
+            throw new Exception("anneeDebut et anneeFin ont la valeur 0");
         }
         return sessionId;
     }

@@ -20,7 +20,7 @@ public final class ConvertDateYear {
         List<Date> dateListe = new ArrayList<Date>();
         String dateStr = DateList;
          String[] dateList = dateStr.split("-");
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formater = new SimpleDateFormat("MM/dd/yyyy");
         
         dateListe.add(formater.parse(dateList[0]));
         dateListe.add(formater.parse(dateList[1]));
@@ -32,7 +32,7 @@ public final class ConvertDateYear {
         SimpleDateFormat formaterYear = new SimpleDateFormat("yyyy");
         
         YearListe.add(Integer.parseInt(formaterYear.format(DateList.get(0))));
-        YearListe.add(Integer.parseInt(formaterYear.format(DateList.get(0))));
+        YearListe.add(Integer.parseInt(formaterYear.format(DateList.get(1))));
         return YearListe;
     }
 }
