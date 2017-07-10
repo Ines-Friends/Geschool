@@ -18,6 +18,6 @@ public interface SessionDAO {
     void creerSession(Session s);
     void modifSession(Session s);
     Session chercherSession(String idSession);
-    Session chercherSessionEnCours(Session s);
+    Session chercherSessionEnCours();
     List<Session> chercherToutesLesSessions();
 }
