@@ -44,9 +44,8 @@ public class SessionDAOImpl implements SessionDAO{
     }
 
     @Override
-    public Session chercherSessionEnCours(Session s) {
+    public Session chercherSessionEnCours() {
         Query query = em.createNamedQuery("Session.rechercherUneSessionEnCours");
-        query.setParameter("actif", s.getActif());
         return (Session) query.getSingleResult();
     }
 

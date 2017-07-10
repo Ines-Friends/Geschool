@@ -35,7 +35,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "Session.rechercherSessionAvecAnneeFin", query = "SELECT s FROM Session s WHERE s.anneFin = :anneFin"),
     @NamedQuery(name = "Session.rechercherSessionAvecDateDebut", query = "SELECT s FROM Session s WHERE s.dateDebut = :dateDebut"),
     @NamedQuery(name = "Session.rechercherSessionAvecDateFin", query = "SELECT s FROM Session s WHERE s.dateFin = :dateFin"),
-    @NamedQuery(name = "Session.rechercherUneSessionEnCours", query = "SELECT s FROM Session s WHERE s.actif = :actif")})
+    @NamedQuery(name = "Session.rechercherUneSessionEnCours", query = "SELECT s FROM Session s WHERE s.actif = 1")})
 public class Session implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
