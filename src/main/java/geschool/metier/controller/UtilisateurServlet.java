@@ -48,7 +48,14 @@ public class UtilisateurServlet extends HttpServlet {
         }else if(action.equals("logout")){
             HttpSession session = request.getSession();
             session.invalidate();
-            response.sendRedirect( AllUrl.URL_PAGE_LOGIN );
+            response.sendRedirect( AllUrl.URL_PAGE_LOGIN_REDIRECT );
+        }else if(action.equals("unlock")){
+            HttpSession session = request.getSession();
+            int timeOut = session.getMaxInactiveInterval();
+            if(timeOut == 2){
+               session.invalidate();
+               response.sendRedirect( AllUrl.URL_PAGE_LOCKSCREEN ); 
+            }
         }
     }
 
@@ -62,29 +69,58 @@ public class UtilisateurServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        try {
-            ConnexionValidationForm form = new ConnexionValidationForm(uDAO);
-            /* Traitement de la requête et récupération du bean en résultant */
-            Utilisateur utilisateur = form.connecterUtilisateur(request);
-            /* Stockage du formulaire et du bean dans l'objet request */
-            request.setAttribute( ATT_FORM, form );
-            request.setAttribute( ATT_USER, utilisateur );
-            /**
-             * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
-             * Utilisateur à la session, sinon suppression du bean de la
-             * session.
-             */
-            if ( form.getErreurs().isEmpty() ) {
-                /* Récupération de la session depuis la requête */
-                HttpSession session = request.getSession();
-                session.setAttribute( ATT_SESSION_USER, utilisateur );
-                this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
-            } else {
-                request.setAttribute(MESSAGE, "error");
-                this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_LOGIN ).forward( request, response );
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(UtilisateurServlet.class.getName()).log(Level.SEVERE, null, ex);
+        String action = request.getParameter("action");
+        
+        if(action.equals("login")){
+            try {
+                    ConnexionValidationForm form = new ConnexionValidationForm(uDAO);
+                    /* Traitement de la requête et récupération du bean en résultant */
+                    Utilisateur utilisateur = form.connecterUtilisateur(request);
+                    /* Stockage du formulaire et du bean dans l'objet request */
+                    request.setAttribute( ATT_FORM, form );
+                    request.setAttribute( ATT_USER, utilisateur );
+                    /**
+                     * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
+                     * Utilisateur à la session, sinon suppression du bean de la
+                     * session.
+                     */
+                    if ( form.getErreurs().isEmpty() ) {
+                        /* Récupération de la session depuis la requête */
+                        HttpSession session = request.getSession();
+                        session.setAttribute( ATT_SESSION_USER, utilisateur );
+                        this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
+                    } else {
+                        request.setAttribute(MESSAGE, "error");
+                        this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_LOGIN ).forward( request, response );
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(UtilisateurServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }else if(action.equals("unlock")){
+            try {
+                    ConnexionValidationForm form = new ConnexionValidationForm(uDAO);
+                    /* Traitement de la requête et récupération du bean en résultant */
+                    Utilisateur utilisateur = form.unlockUtilisateur(request);
+                    /* Stockage du formulaire et du bean dans l'objet request */
+                    request.setAttribute( ATT_FORM, form );
+                    request.setAttribute( ATT_USER, utilisateur );
+                    /**
+                     * Si aucune erreur de validation n'a eu lieu, alors ajout du bean
+                     * Utilisateur à la session, sinon suppression du bean de la
+                     * session.
+                     */
+                    if ( form.getErreurs().isEmpty() ) {
+                        /* Récupération de la session depuis la requête */
+                        HttpSession session = request.getSession();
+                        session.setAttribute( ATT_SESSION_USER, utilisateur );
+                        this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_ACCUEIL ).forward( request, response );
+                    } else {
+                        request.setAttribute(MESSAGE, "error");
+                        this.getServletContext().getRequestDispatcher( AllUrl.URL_PAGE_LOGIN ).forward( request, response );
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(UtilisateurServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
         }
     }
 }

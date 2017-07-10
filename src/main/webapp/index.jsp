@@ -12,7 +12,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>AdminLTE 2 | Log in</title>
+        <title>Geschool | Log in</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -44,6 +44,7 @@
                 <p class="login-box-msg">Geschool</p>
 
                 <form action="<c:url value="/UtilisateurServlet"/>" method="post">
+                    <input type="hidden" class="form-control" name="action" value="login">
                     <div class="form-group has-feedback">
                         <input type="text" class="form-control" name="login" placeholder="Saisisser un login">
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>

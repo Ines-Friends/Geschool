@@ -1,18 +1,17 @@
 <%-- 
-    Document   : 404
-    Created on : 3 juil. 2017, 00:54:49
+    Document   : 500
+    Created on : 4 juil. 2017, 23:23:17
     Author     : xavier_ng
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>404 Page not found</title>
+        <title>500 Error</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -234,30 +233,31 @@
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
                     <h1>
-                        404 Error Page
+                        500 Error Page
                     </h1>
                     <ol class="breadcrumb">
                         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">404 error</li>
+                        <li class="active">500 error</li>
                     </ol>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
+
                     <div class="error-page">
-                        <h2 class="headline text-yellow"> 404</h2>
+                        <h2 class="headline text-red">500</h2>
 
                         <div class="error-content">
-                            <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
+                            <h3><i class="fa fa-warning text-red"></i> Oops! Something went wrong.</h3>
 
                             <p>
-                                We could not find the page you were looking for.
+                                We will work on fixing that right away.
                                 Meanwhile, you may <a href="index.html">return to dashboard</a> or try using the search form.
                             </p>
                         </div>
-                        <!-- /.error-content -->
                     </div>
                     <!-- /.error-page -->
+
                 </section>
                 <!-- /.content -->
             </div>

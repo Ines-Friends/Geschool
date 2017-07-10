@@ -7,9 +7,25 @@
         <servlet-name>UtilisateurServlet</servlet-name>
         <servlet-class>geschool.metier.controller.UtilisateurServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SessionServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.SessionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AutoServlet</servlet-name>
+        <servlet-class>geschool.metier.controller.AutoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UtilisateurServlet</servlet-name>
         <url-pattern>/UtilisateurServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SessionServlet</servlet-name>
+        <url-pattern>/SessionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AutoServlet</servlet-name>
+        <url-pattern>/AutoServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -25,7 +41,11 @@
         <location>/404.jsp</location>
     </error-page>
     <error-page>
+        <error-code>403</error-code>
+        <location>/404.jsp</location>
+    </error-page>
+    <error-page>
         <error-code>500</error-code>
-        <location>/500.html</location>
+        <location>/500.jsp</location>
     </error-page>
 </web-app>

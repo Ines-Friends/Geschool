@@ -1,18 +1,17 @@
 <%-- 
-    Document   : 404
-    Created on : 3 juil. 2017, 00:54:49
+    Document   : ajoutSessionAcademique
+    Created on : 6 juil. 2017, 00:11:32
     Author     : xavier_ng
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="f" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>404 Page not found</title>
+        <title>Geschool | Ajout Session</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -26,6 +25,14 @@
         <!-- AdminLTE Skins. Choose a skin from the css/skins
              folder instead of downloading all of them to reduce the load. -->
         <link rel="stylesheet" href="css/skins/_all-skins.min.css">
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+        <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
+        <!-- iCheck for checkboxes and radio inputs -->
+        <link rel="stylesheet" href="plugins/iCheck/all.css">
+        <!-- Select2 -->
+        <link rel="stylesheet" href="plugins/select2/select2.min.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,7 +48,7 @@
                 <!-- Logo -->
                 <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
-                    <span class="logo-mini"><b>A</b>LT</span>
+                    <span class="logo-mini"><b>G</b></span>
                     <!-- logo for regular state and mobile devices -->
                     <span class="logo-lg"><b>Geschool</b></span>
                 </a>
@@ -70,7 +77,6 @@
                                     <!-- User image -->
                                     <li class="user-header">
                                         <img src="img/avatar.png" class="img-circle" alt="User Image">
-
                                         <p>
                                             <c:out value="${sessionScope.sessionUtilisateur.login}"/>
                                         </p>
@@ -98,10 +104,10 @@
                     <!-- Sidebar user panel -->
                     <div class="user-panel">
                         <div class="pull-left image">
-                            <img src="dist/img/avatar.png" class="img-circle" alt="User Image">
+                            <img src="img/avatar.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p><c:out value="${sessionScope.sessionUtilisateur.login}"/></p>
+                            <p>Adminstrateur</p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -136,7 +142,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="#"><i class="fa fa-user-plus"></i> Nouv. Inscription</a></li>
+                                <li><a href="form.html"><i class="fa fa-user-plus"></i> Nouv. Inscription</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -233,31 +239,84 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content-header">
-                    <h1>
-                        404 Error Page
-                    </h1>
                     <ol class="breadcrumb">
-                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                        <li class="active">404 error</li>
+                        <li><a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li><a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>">Session Academique</a></li>
+                        <li class="active">Ajout session</li>
                     </ol>
+                    <br/>
                 </section>
 
                 <!-- Main content -->
                 <section class="content">
-                    <div class="error-page">
-                        <h2 class="headline text-yellow"> 404</h2>
 
-                        <div class="error-content">
-                            <h3><i class="fa fa-warning text-yellow"></i> Oops! Page not found.</h3>
-
-                            <p>
-                                We could not find the page you were looking for.
-                                Meanwhile, you may <a href="index.html">return to dashboard</a> or try using the search form.
-                            </p>
+                    <!-- SELECT2 EXAMPLE -->
+                    <div class="box box-default">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Formulaire</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                            </div>
                         </div>
-                        <!-- /.error-content -->
+                        <form action="<c:url value="/SessionServlet"/>" method="post">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- /.form-group -->
+                                        <div class="form-group">
+                                            <label>Ann&eacute;e scolaire</label>
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar"></i>
+                                                </div>
+                                                <input type="text" class="form-control pull-right" id="reservation" name="date"/>
+                                                <input type="hidden" class="form-control pull-right" name="action" value="ajoutsession"/>
+                                                <input type="hidden" class="form-control pull-right" name="session" value="${sessionScope.sessionUtilisateur.idUtilisateur}"/>
+                                            </div>
+                                        </div>
+                                        <!-- /.form-group -->
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                                <!-- /.row -->
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="reset" class="btn btn-default">Cancel</button>
+                                <button type="submit" class="btn btn-info pull-right">valider</button>
+                            </div>
+                        </form>
                     </div>
-                    <!-- /.error-page -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <c:if test="${message == 'error'}">
+                                <div class="alert alert-danger alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                                    <c:out value="${form.erreurs}"/>
+                                </div>
+                            </c:if>
+                            <c:if test="${message == 'success'}">
+                                <div class="alert alert-success alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4><i class="icon fa fa-check"></i> Success!</h4>
+                                    La sessin académique a été créée avec succès
+                                </div>
+                            </c:if>
+                            <c:if test="${message == 'warning'}">
+                                <div class="alert alert-warning alert-dismissible">
+                                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                    <h4><i class="icon fa fa-warning"></i>Warning</h4>
+                                    Une session existe déjà pour cette année!
+                                </div>
+                            </c:if>
+                        </div>
+                    </div>
+                    <!-- /.box -->
+                    <!-- /.row -->
+
                 </section>
                 <!-- /.content -->
             </div>
@@ -280,11 +339,25 @@
         <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
         <!-- Bootstrap 3.3.6 -->
         <script src="js/bootstrap.min.js"></script>
+        <!-- date-range-picker -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+        <script src="plugins/daterangepicker/daterangepicker.js"></script>
+        <!-- SlimScroll 1.3.0 -->
+        <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- iCheck 1.0.1 -->
+        <script src="plugins/iCheck/icheck.min.js"></script>
         <!-- FastClick -->
         <script src="plugins/fastclick/fastclick.js"></script>
         <!-- AdminLTE App -->
         <script src="js/app.min.js"></script>
         <!-- AdminLTE for demo purposes -->
         <script src="js/demo.js"></script>
+        <!-- Page script -->
+        <script>
+            $(function () {
+                //Date range picker
+                $('#reservation').daterangepicker();
+            });
+        </script>
     </body>
 </html>

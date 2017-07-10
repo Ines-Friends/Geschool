@@ -49,7 +49,7 @@
 
             <header class="main-header">
                 <!-- Logo -->
-                <a href="home.html" class="logo">
+                <a href="<c:url value="/AutoServlet?action=home&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>" class="logo">
                     <!-- mini logo for sidebar mini 50x50 pixels -->
                     <span class="logo-mini"><b>G</b></span>
                     <!-- logo for regular state and mobile devices -->
@@ -74,14 +74,14 @@
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <img src="img/avatar.png" class="user-image" alt="User Image">
-                                    <span class="hidden-xs">Admin</span>
+                                    <span class="hidden-xs"><c:out value="${sessionScope.sessionUtilisateur.login}"/></span>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <!-- User image -->
                                     <li class="user-header">
                                         <img src="img/avatar.png" class="img-circle" alt="User Image">
                                         <p>
-                                            Adminstrateur
+                                            <c:out value="${sessionScope.sessionUtilisateur.login}"/>
                                         </p>
                                     </li>
                                     <!-- Menu Body -->
@@ -110,7 +110,7 @@
                             <img src="img/avatar.png" class="img-circle" alt="User Image">
                         </div>
                         <div class="pull-left info">
-                            <p>Adminstrateur</p>
+                            <p><c:out value="${sessionScope.sessionUtilisateur.login}"/></p>
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
                                     <a href="#"><i class="fa fa-table"></i>
                                         <span>Liste de classes</span>
                                         <span class="pull-right-container">
-                                            <span class="label label-primary pull-right">4</span>
+                                            <span class="label label-primary pull-right"></span>
                                         </span>
                                     </a>
                                 </li>
@@ -178,14 +178,14 @@
                             </a>
                             <ul class="treeview-menu">
                                 <li>
-                                    <a href="#"><i class="fa fa-calendar"></i>
+                                    <a href="<c:url value="/AutoServlet?action=listesession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar"></i>
                                         <span>Liste</span>
                                         <span class="pull-right-container">
                                             <span class="label label-primary pull-right">4</span>
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="form2.html"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
+                                <li><a href="<c:url value="/AutoServlet?action=ajoutsession&session=${sessionScope.sessionUtilisateur.idUtilisateur}"/>"><i class="fa fa-calendar-plus-o"></i> Nouv. Ann&eacute;e scolaire</a></li>
                             </ul>
                         </li>
                         <li class="treeview">
@@ -485,9 +485,8 @@
                     //Boolean - whether to make the chart responsive to window resizing
                     responsive: true,
                     // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-                    maintainAspectRatio: true,
+                    maintainAspectRatio: true
                     //String - A legend template
-                    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
                 };
                 //Create pie or douhnut chart
                 // You can switch between pie and douhnut using the method below.
